@@ -108,7 +108,10 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    // diganti menjadi data local
+    'faker_locale' => env('FAKER_LOCALE', 'en_US'),
+
+    // 'faker_locale' => 'en_US', <-- versi default
 
     /*
     |--------------------------------------------------------------------------
