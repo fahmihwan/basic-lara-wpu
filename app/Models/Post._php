@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Models;
+
+class Post
+{
+    private static $data_dummy = [
+        [
+            'judul' => 'dongeng',
+            'penulis' => 'iwan fals',
+            'slug' => 'judul-post-pertama',
+            'text' => 'Laborum enim qui eu incididunt nisi ullamco nostrud officia duis quis laboris id nulla. sVoluptate sit officia do officia cillum. Sint ut aliqua do ut veniam cillum culpa minim cillum.'
+        ],
+        [
+            'judul' => 'horor',
+            'penulis' => 'iwan fals',
+            'slug' => 'judul-post-kedua',
+            'text' => 'Laborum enim qui eu incididunt nisi ullamco nostrud officia duis quis laboris id nulla. sVoluptate sit officia do officia cillum. Sint ut aliqua do ut veniam cillum culpa minim cillum.'
+        ],
+        [
+            'judul' => 'cerita rakyat',
+            'penulis' => 'iwan fals',
+            'slug' => 'judul-post-ketiga',
+            'text' => 'Laborum enim qui eu incididunt nisi ullamco nostrud officia duis quis laboris id nulla. sVoluptate sit officia do officia cillum. Sint ut aliqua do ut veniam cillum culpa minim cillum.'
+        ],
+    ];
+
+    public static function all()
+    {
+        return collect(self::$data_dummy);
+    }
+
+    public static function find($slug)
+    {
+        return static::all()->firstWhere('slug', $slug);
+    }
+}
