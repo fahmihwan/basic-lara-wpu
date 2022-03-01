@@ -12,12 +12,14 @@ class PostController extends Controller
         return view('posts', [
             'title' => 'All Posts',
             // 'posts' => Post::all()
-            'posts' => Post::with(['author', 'category'])->latest()->get()
+            'posts' => Post::latest()->get()
         ]);
     }
 
     public function show($slug)
     {
+
+        // $post = Post::where('slug', $slug)->first();
         $post = Post::where('slug', $slug)->first();
         return view('post', [
             'title' => 'data post',
