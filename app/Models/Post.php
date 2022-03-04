@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;              //library namanya Eloquent-Sluggable = untuk membuat slug otomatis
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
+    // use Sluggable;
 
     protected $fillable = ['category_id', 'title', 'slug', 'excerpt', 'body'];
     protected $with = ['category', 'author'];
@@ -62,8 +64,17 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getRouteKeyName()
+    public function getRouteKeyName()        //fitur bawaan laravel untuk menduplicate id menjadi slug jadi yang keluar akan slug nantinya bukan id
     {
         return 'slug';
+    }
+
+    public function sluggable(): array      //library namanya Eloquent-Sluggable = untuk membuat slug otomatis
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }
