@@ -7,6 +7,8 @@ use App\Models\post;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Str;
+
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 
@@ -45,7 +47,21 @@ class DashboardPostController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+
+
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'slug' => 'required|unique:posts',
+            'category_id' => 'required',
+            'body' => 'required',
+        ]);
+
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200, '...');     //strip_tags = untuk menghilangkan tag html
+
+        Post::create($validatedData);
+
+        return redirect('/dashboard/posts')->with('success', 'New post has been added!');
     }
 
     /**
