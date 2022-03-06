@@ -10,8 +10,7 @@
                 @csrf
                 <button type="submit" class="nav-link px-3 bg-dark border-0">
                     Logout
-                    <!-- <span data-feather="log-out"></span> -->
-                    <span data-feather="log-out"></span>
+                    <i class="bi bi-box-arrow-right" style="font-size: 1rem;"></i>
                 </button>
             </form>
 
