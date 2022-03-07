@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(3)->create();
+
 
         // DB::table('users')->insert([
         //     'name' => Str::random(10),
@@ -25,11 +25,15 @@ class DatabaseSeeder extends Seeder
         //     'password' => Hash::make('password'),
         // ]);
 
-        // User::create([
-        //     'name' => 'Fahmi Ichwanurrohman',
-        //     'email' => 'fahmiiwan86@gmail.com',
-        //     'password' => bcrypt('12345'),
-        // ]);
+        User::create([
+            'name' => 'Fahmi Ichwanurrohman',
+            'username' => 'fahmihwan',
+            'email' => 'fahmiiwan86@gmail.com',
+            'password' => bcrypt('qweqwe'),
+        ]);
+
+        User::factory(3)->create();
+
 
         Category::create([
             'name' => 'Web Programming',

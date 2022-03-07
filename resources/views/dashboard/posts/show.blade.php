@@ -21,8 +21,11 @@ text-overflow: ellipsis; -->
                 </button>
             </form>
 
+            @if($post->image)
+            <img src="{{ asset('storage/'.$post->image) }}" alt="{{$post->category->name}}" class="img-fluid mt-3 ">
+            @else
             <img src="https://source.unsplash.com/1200x400?{{$post->category->name}}" alt="{{$post->category->name}}" class="img-fluid mt-3 ">
-
+            @endif
             <article class="my-3" style="overflow: hidden">
                 {!!$post->body!!}
             </article>

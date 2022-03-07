@@ -28,13 +28,13 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $post->title}}</td>
                 <td>{{ $post->category->name }}</td>
-                <td>
-                    <a href="/dashboard/posts/{{ $post->slug }}" class="badge bg-info"><i class="bi bi-bullseye" style="font-size: 1rem;"></i></a>
-                    <a href="/dashboard/posts/{{ $post->slug }}/edit" class="badge bg-warning"><i class="bi bi-pencil-square" style="font-size: 1rem;"></i></a>
-                    <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="d-inline">
+                <td class="d-flex p-4">
+                    <a href="/dashboard/posts/{{ $post->slug }}" class="badge bg-info ms-2"><i class="bi bi-bullseye" style="font-size: 1rem;"></i></a>
+                    <a href="/dashboard/posts/{{ $post->slug }}/edit" class="badge bg-warning ms-2 "><i class="bi bi-pencil-square" style="font-size: 1rem;"></i></a>
+                    <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="ms-2">
                         @method('delete')
                         @csrf
-                        <button class="badge bg-danger border-0" onClick="return confirm('Are you sure?')">
+                        <button class=" badge bg-danger border-0" onClick="return confirm('Are you sure?')">
                             <i style="font-size: 1rem;" class=" bi bi-trash"></i>
                         </button>
                     </form>
