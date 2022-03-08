@@ -41,7 +41,8 @@
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Post Image</label>
-            <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image">
+            <img src="" class="img-preview img-fluid">
+            <input onChange="previewImage()" class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image">
             @error('image')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -56,10 +57,8 @@
             <input id="body" type="hidden" name="body" value="{{old('body')}}">
             <trix-editor input="body"></trix-editor>
         </div>
-
         <button type="submit" class="btn btn-primary">Create Post</button>
     </form>
-
 </div>
 
 
@@ -76,5 +75,24 @@
     // document.addEventListener('trix-file-accept', function(e) {               //DOESNT WORK
     //     e.preventDefault();
     // })
+
+    function previewImage() {
+        const image = document.querySelector('#image');
+        const imgPreview = document.querySelector('.img-preview');
+
+        imgPreview.style.display = 'block'
+
+
+        const dataUrl = URL.createObjectURL(image.files[0]); //<-- cara gampang preview IMG
+        imgPreview.src = dataUrl
+
+        // const oFReader = new FileReader();                           //<-- cara ribet preview IMG
+        // oFReader.readAsDataURL(image.files[0])
+
+        // oFReader.onload = function(oFREvent) {
+        //     imgPreview.src = oFREvent.target.result
+        // }
+
+    }
 </script>
 @endsection

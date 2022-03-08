@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Expr\PostDec;
 
 class DashboardPostController extends Controller
@@ -57,7 +58,6 @@ class DashboardPostController extends Controller
             'body' => 'required',
         ]);
 
-        // dd($request->file('image')->store('post-images'));
         if ($request->file('image')) {
             $validatedData['image'] = $request->file('image')->store('post-images');
         }
@@ -94,7 +94,6 @@ class DashboardPostController extends Controller
         return view('dashboard.posts.edit', [
             'post' => $post,
             'categories' => Category::all()
-            // 'categories' => Category::all()
         ]);
     }
 
@@ -120,6 +119,7 @@ class DashboardPostController extends Controller
         $rules = [
             'title' => 'required|max:255',
             'category_id' => 'required',
+            'image' => 'image|file|max:4096',
             'body' => 'required',
         ];
 
@@ -128,6 +128,11 @@ class DashboardPostController extends Controller
         }
 
         $validatedData = $request->validate($rules);
+
+        if ($request->file('image')) {
+            Storage::delete($post->image);
+            $validatedData['image'] = $request->file('image')->store('post-images');
+        }
 
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200, '...');     //strip_tags = untuk menghilangkan tag html
@@ -146,7 +151,9 @@ class DashboardPostController extends Controller
      */
     public function destroy(post $post)
     {
+        Storage::delete($post->image);
         Post::destroy($post->id);
+
         return redirect('/dashboard/posts')->with('success', 'Post has been deleted!');
     }
 
